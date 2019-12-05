@@ -1,0 +1,17 @@
+Package: stdidx
+Title: Tools for creating indices of variables
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Graeme",
+           family = "Blair",
+           role = c("aut", "cre"),
+           email = "graeme.blair@ucla.edu",
+           comment = c(ORCID = "0000-0001-9164-2102"))
+Description: Tools for standardizing variables and creating indices.
+License: MIT
+Suggests: 
+    testthat
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.0.0
