@@ -38,3 +38,20 @@ test_that("basic indexing with missing vals", {
   expect_equal((var1[50] + var2[50]) / 2, NA_integer_)
 
 })
+
+test_that("indexing w/o fillin with missing vals", {
+
+  var2[50:100] <- NA
+
+  idx <- idx_mean(var1, var2, fill_na = FALSE, na.rm = FALSE)
+  expect_equal(sum(is.na(idx)), 51)
+  expect_equal(idx[1], (var1[1] + var2[1])/2)
+  expect_equal(idx[50], NA_integer_)
+
+  idx <- idx_mean(var1, var2, fill_na = FALSE, na.rm = TRUE)
+  expect_equal(sum(is.na(idx)), 0)
+  expect_equal(idx[1], (var1[1] + var2[1])/2)
+  expect_equal(idx[50], var1[50])
+
+})
+

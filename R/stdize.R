@@ -20,7 +20,21 @@
 #' summary(var_std)
 #'
 stdize <- function(variable, compare, condition, na.rm = TRUE) {
-  if(missing(compare)) compare <- variable
-  if(missing(condition)) condition <- TRUE
+
+  # checks
+  if(missing(variable)) stop("Please provide variable you wish to standardize.")
+  if(!inherits(variable, "numeric")) stop("variable must be numeric.")
+  if(missing(compare)) {
+    compare <- variable
+  } else {
+    if(!inherits(compare, "numeric")) stop("compare must be numeric.")
+  }
+  if(missing(condition)) {
+    condition <- TRUE
+  } else {
+    if(!inherits(condition, "logical")) condition <- as.logical(condition)
+  }
+
+  # standardize
   (variable - mean(compare[condition == TRUE], na.rm = na.rm)) / sd(compare[condition == TRUE], na.rm = na.rm)
 }

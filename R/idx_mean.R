@@ -27,29 +27,13 @@
 #' @importFrom stats sd
 idx_mean <- function(..., fill_na = TRUE, na.rm = TRUE) {
 
-  dots <- list2(...)
-  mat <- matrix(unlist(dots, use.names = FALSE), ncol = length(dots), byrow = FALSE)
+  # fill in NA values (if chosen) and convert to a matrix
+  variables <- prep_data(..., fill_na = fill_na)
 
-  if(fill_na == TRUE) {
-    na_cols <- which(apply(mat, 2, function(x) any(is.na(x))))
+  # calculate index
+  index <- apply(variables, 1, mean, na.rm = na.rm)
 
-    for(i in na_cols) {
-      mat[, i] <- fill_na_col(mat[, i, drop = FALSE], mat[, -i, drop = FALSE])
-    }
-  }
+  index
 
-  apply(mat, 1, mean, na.rm = na.rm)
-
-}
-
-
-# internal function to make a simple linear prediction
-#  to values with missing
-#' @importFrom stats coef lm predict
-fill_na_col <- function(col, x) {
-  fit <- lm(col ~ x)
-  print(coef(fit))
-  pred <- predict(fit, newdata = as.data.frame(x))
-  ifelse(is.na(col), pred, col)
 }
 
