@@ -20,9 +20,21 @@
 #' mutate(df, idx_var = mean_idx(var1, var2, var3))
 #'
 #' @importFrom rlang list2
-mean_idx <- function(...) {
+mean_idx <- function(..., fill_na = TRUE) {
+
   dots <- list2(...)
   mat <- matrix(unlist(dots, use.names = FALSE), ncol = length(dots), byrow = TRUE)
+
+  if(fill_NA == TRUE) {
+    na_cols <- which(apply(mat, 2, function(x) any(is.na(x))))
+
+    for(i in na_cols) {
+      fit <- lm(mat[, i] ~ mat[, -i])
+      mat[, i] <- predict(fit, newdata = as.data.frame(mat[, -i]))
+    }
+  }
+
   apply(mat, 1, mean, na.rm = TRUE)
+
 }
 
