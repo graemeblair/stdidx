@@ -13,10 +13,10 @@ stdize(variable, compare, condition, na.rm = TRUE)
 
 \item{condition}{Logical vector (TRUE or FALSE) used to subset \code{compare} variable before calculating mean and standard deviation.}
 
-\item{na.rm}{}
+\item{na.rm}{Option to remove NA's when calculating mean and standard deviation. Set to \code{TRUE} by default. Note that all values will be NA in the standardized variable if set to \code{FALSE}.}
 }
 \value{
-
+A vector with the standardized variable
 }
 \description{
 Standardize Variable

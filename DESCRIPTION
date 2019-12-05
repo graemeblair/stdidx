@@ -8,9 +8,11 @@ Authors@R:
            email = "graeme.blair@ucla.edu",
            comment = c(ORCID = "0000-0001-9164-2102"))
 Description: Tools for standardizing variables and creating indices.
-License: MIT
+License: MIT + file LICENSE
+Imports: rlang
 Suggests: 
-    testthat
+    testthat,
+    dplyr
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
