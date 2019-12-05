@@ -7,10 +7,15 @@ output: github_document
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  error = FALSE,
   comment = "#>",
   fig.path = "man/figures/README-",
   out.width = "100%"
 )
+
+set.seed(42)
 ```
 
 # stdidx
@@ -20,7 +25,7 @@ knitr::opts_chunk$set(
 [![CRAN status](https://www.r-pkg.org/badges/version/stdidx)](https://CRAN.R-project.org/package=stdidx)
 <!-- badges: end -->
 
-The goal of stdidx is to ...
+This small package provides a set of simple tools for standardizing variables (based on summary statistics from another variable or a subset, such as a control group in an experiment) and constructing indices of multiple variables. It provides simple mean indexing and inverse covariance-weighted indices.
 
 ## Installation
 
@@ -30,7 +35,7 @@ The goal of stdidx is to ...
 <!-- install.packages("stdidx") -->
 <!-- ``` -->
 
-And the development version from [GitHub](https://github.com/) with:
+Install the development version from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
@@ -42,21 +47,22 @@ This is a basic example which shows you how to solve a common problem:
 
 ```{r example}
 library(stdidx)
-## basic example code
+
+var1 <- rnorm(100, mean = 0.5, sd = 0.25)
+var2 <- rnorm(100, mean = -1, sd = 0.5)
+var3 <- rnorm(100, mean = 1, sd = 1)
+
+idx <- idx_mean(var1, var2, var3)
+head(idx)
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
+`stdidx` is set up to work with a `tidyverse` workflow out of the box:
 
-```{r cars}
-summary(cars)
+```{r tidy}
+library(dplyr)
+
+df <- tibble(var1, var2, var3)
+
+df %>% mutate(idx_var = idx_mean(var1, var2, var3)) %>% head
 ```
 
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date.
-
-You can also embed plots, for example:
-
-```{r pressure, echo = FALSE}
-plot(pressure)
-```
-
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub!
