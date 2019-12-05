@@ -11,6 +11,13 @@
 #' @export
 #'
 #' @examples
+#'
+#' var <- rnorm(100, mean = 0.5, sd = 1)
+#'
+#' var_std <- stdize(var)
+#'
+#' summary(var_std)
+#'
 stdize <- function(variable, compare, condition, na.rm = TRUE) {
   if(missing(compare)) compare <- variable
   if(missing(condition)) condition <- TRUE

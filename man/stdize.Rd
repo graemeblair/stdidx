@@ -21,3 +21,12 @@ stdize(variable, compare, condition, na.rm = TRUE)
 \description{
 Standardize Variable
 }
+\examples{
+
+var <- rnorm(100, mean = 0.5, sd = 1)
+
+var_std <- stdize(var)
+
+summary(var_std)
+
+}

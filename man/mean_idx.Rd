@@ -15,3 +15,12 @@ mean_idx(...)
 \description{
 Create Mean Index from Several Variables
 }
+\examples{
+
+var1 <- rnorm(100, mean = 0.5, sd = 0.25)
+var2 <- rnorm(100, mean = -1, sd = 0.5)
+var3 <- rnorm(100, mean = 1, sd = 1)
+
+mean_idx(var1, var2, var3)
+
+}
