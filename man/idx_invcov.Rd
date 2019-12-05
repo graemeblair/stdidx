@@ -4,7 +4,7 @@
 \alias{idx_invcov}
 \title{Create Inverse Covariance-Weighted Index from Several Variables}
 \usage{
-idx_invcov(..., weights, fill_na = TRUE, na.rm = TRUE)
+idx_invcov(..., wt, fill_na = TRUE, na.rm = TRUE)
 }
 \arguments{
 \item{...}{One or more unquoted variables}

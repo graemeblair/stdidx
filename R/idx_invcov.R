@@ -27,21 +27,21 @@
 #'
 #' @importFrom rlang list2
 #' @importFrom stats cov.wt
-idx_invcov <- function(..., weights, fill_na = TRUE, na.rm = TRUE) {
+idx_invcov <- function(..., wt, fill_na = TRUE, na.rm = TRUE) {
 
   # code from https://github.com/cdsamii/make_index/blob/master/r/index_comparison.R
 
   # fill in NA values (if chosen) and convert to a matrix
   variables <- prep_data(..., fill_na = fill_na)
 
-  if(missing(weights)) weights <- rep(1, ncol(variables))
+  if(missing(wt)) wt <- rep(1, nrow(variables))
 
   # calculate index
   i.vec <- as.matrix(rep(1, ncol(variables)))
-  Sx <- cov.wt(variables, wt = weights)[[1]]
+  Sx <- cov.wt(variables, wt = wt)[[1]]
   # wts <- solve(t(i.vec) %*% solve(Sx) %*% i.vec) %*% t(i.vec) %*% solve(Sx)
 
-  index <- t(solve(t(i.vec) %*% solve(Sx) %*% i.vec) %*% t(i.vec) %*% solve(Sx) %*% t(variables))
+  index <- (t(solve(t(i.vec) %*% solve(Sx) %*% i.vec) %*% t(i.vec) %*% solve(Sx) %*% t(variables)))[, 1]
 
   index
 
