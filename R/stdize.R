@@ -19,15 +19,15 @@
 #'
 #' summary(var_std)
 #'
-stdize <- function(variable, compare, condition, na.rm = TRUE) {
+stdize <- function(variable, to, condition, na.rm = TRUE) {
 
   # checks
   if(missing(variable)) stop("Please provide variable you wish to standardize.")
   if(!inherits(variable, "numeric")) stop("variable must be numeric.")
-  if(missing(compare)) {
-    compare <- variable
+  if(missing(to)) {
+    to <- variable
   } else {
-    if(!inherits(compare, "numeric")) stop("compare must be numeric.")
+    if(!inherits(to, "numeric")) stop("to must be a numeric variable.")
   }
   if(missing(condition)) {
     condition <- TRUE
@@ -36,5 +36,5 @@ stdize <- function(variable, compare, condition, na.rm = TRUE) {
   }
 
   # standardize
-  (variable - mean(compare[condition == TRUE], na.rm = na.rm)) / sd(compare[condition == TRUE], na.rm = na.rm)
+  (variable - mean(to[condition == TRUE], na.rm = na.rm)) / sd(to[condition == TRUE], na.rm = na.rm)
 }
