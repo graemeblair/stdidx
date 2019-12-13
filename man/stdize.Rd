@@ -4,16 +4,16 @@
 \alias{stdize}
 \title{Standardize Variable}
 \usage{
-stdize(variable, compare, condition, na.rm = TRUE)
+stdize(variable, to, condition, na.rm = TRUE)
 }
 \arguments{
 \item{variable}{Unquoted name of variable to standardize}
 
-\item{compare}{Variable to use to calculate mean and standard deviation from}
-
 \item{condition}{Logical vector (TRUE or FALSE) used to subset \code{compare} variable before calculating mean and standard deviation.}
 
 \item{na.rm}{Option to remove NA's when calculating mean and standard deviation. Set to \code{TRUE} by default. Note that all values will be NA in the standardized variable if set to \code{FALSE}.}
+
+\item{compare}{Variable to use to calculate mean and standard deviation from}
 }
 \value{
 A vector with the standardized variable

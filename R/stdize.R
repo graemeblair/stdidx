@@ -23,16 +23,16 @@ stdize <- function(variable, to, condition, na.rm = TRUE) {
 
   # checks
   if(missing(variable)) stop("Please provide variable you wish to standardize.")
-  if(!inherits(variable, "numeric")) stop("variable must be numeric.")
+  if(!is.numeric(variable)) stop("variable must be numeric.")
   if(missing(to)) {
     to <- variable
   } else {
-    if(!inherits(to, "numeric")) stop("to must be a numeric variable.")
+    if(is.numeric(to)) stop("to must be a numeric variable.")
   }
   if(missing(condition)) {
     condition <- TRUE
   } else {
-    if(!inherits(condition, "logical")) condition <- as.logical(condition)
+    if(!is.logical(condition)) condition <- as.logical(condition)
   }
 
   # standardize
