@@ -27,7 +27,7 @@ stdize <- function(variable, to, condition, na.rm = TRUE) {
   if(missing(to)) {
     to <- variable
   } else {
-    if(is.numeric(to)) stop("to must be a numeric variable.")
+    if(!is.numeric(to)) stop("to must be a numeric variable.")
   }
   if(missing(condition)) {
     condition <- TRUE
