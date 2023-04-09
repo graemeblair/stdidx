@@ -27,9 +27,9 @@
 #'
 #' @importFrom rlang list2
 #' @importFrom stats cov.wt
-idx_invcov <- function(..., wt, fill_na = TRUE, na.rm = TRUE) {
+idx_invcov <- function(..., wt, fill_na = FALSE, na.rm = FALSE) {
 
-  # code from https://github.com/cdsamii/make_index/blob/master/r/index_comparison.R
+  # code adapted from https://github.com/cdsamii/make_index/blob/master/r/index_comparison.R
 
   # fill in NA values (if chosen) and convert to a matrix
   variables <- prep_data(..., fill_na = fill_na)
@@ -38,7 +38,18 @@ idx_invcov <- function(..., wt, fill_na = TRUE, na.rm = TRUE) {
 
   # calculate index
   i.vec <- as.matrix(rep(1, ncol(variables)))
-  Sx <- cov.wt(variables, wt = wt)[[1]]
+
+  if(na.rm == TRUE) {
+    variables_nona <- na.omit(variables)
+    wt_nona <- wt[which(!( (1:length(wt)) %in% attributes(variables_nona)$na.action))]
+    Sx <- cov.wt(variables_nona, wt = wt_nona)[[1]]
+  } else {
+    if(any(is.na(variables))) {
+      stop("You have missing data in one or more variables. For the inverse covariance index, you need to either remove them, or choose the fill_NA = TRUE and/or na.rm = TRUE options.", call. = FALSE)
+    }
+    Sx <- cov.wt(variables, wt = wt)[[1]]
+  }
+
   # wts <- solve(t(i.vec) %*% solve(Sx) %*% i.vec) %*% t(i.vec) %*% solve(Sx)
 
   index <- (t(solve(t(i.vec) %*% solve(Sx) %*% i.vec) %*% t(i.vec) %*% solve(Sx) %*% t(variables)))[, 1]

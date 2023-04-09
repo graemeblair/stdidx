@@ -25,7 +25,7 @@
 #'
 #' @importFrom rlang list2
 #' @importFrom stats sd
-idx_mean <- function(..., fill_na = TRUE, na.rm = TRUE) {
+idx_mean <- function(..., fill_na = FALSE, na.rm = FALSE) {
 
   # fill in NA values (if chosen) and convert to a matrix
   variables <- prep_data(..., fill_na = fill_na)
